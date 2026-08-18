@@ -125,8 +125,5 @@ mysql -u root -p controle_estoque < backup.sql
 | POST   | /movimentacoes                | Registra entrada/saída              | Sim          |
 | DELETE | /movimentacoes/:id             | Exclui movimentação                 | Sim          |
 
-Use o arquivo `backend/requests.http` (extensão REST Client/Thunder Client do VS Code) para testar todas as rotas prontas.
-
 ## Histórico de commits
 
-O desenvolvimento foi feito de forma gradual e incremental, com um commit para cada arquivo/etapa criada, seguindo a apostila de referência do projeto (Parte 0 a Parte 4: preparação do ambiente, banco de dados, back-end e front-end).
