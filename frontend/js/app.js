@@ -1,23 +1,22 @@
-// =================================================================
-// Logica principal do sistema (dashboard + CRUDs).
-// =================================================================
 
-// Protege a pagina: sem token, volta ao login.
+// Logica do sistema
+
+// potege a pagina: sem token volta ao login
 if (!pegarToken()) window.location.href = 'index.html';
 
-// Mostra o nome do usuario logado.
+// mostra o nome do usuario logado
 const usuario = pegarUsuario();
 if (usuario) document.getElementById('nome-usuario').textContent = 'Ola, ' + usuario.nome;
 
-// Guarda a lista de categorias em memoria (usada nos selects).
+// Guarda a lista de categorias em memoria (usada nos selects) 
 let categoriasCache = [];
 let produtosCache = [];
 
 // Estado do modal: qual formulario esta aberto e qual id edita.
-let modalTipo = null;   // 'produto' | 'categoria' | 'movimentacao'
+let modalTipo = null;   // produt | categoria | movimentacao
 let modalId = null;     // id em edicao (null = novo)
 
-// ---------- Mensagens ----------
+// ---------- mensagens ----------
 function aviso(texto, tipo = 'sucesso') {
   const m = document.getElementById('mensagem');
   m.textContent = texto;
@@ -25,7 +24,7 @@ function aviso(texto, tipo = 'sucesso') {
   setTimeout(() => { m.className = 'mensagem'; }, 4000);
 }
 
-// ---------- Navegacao por abas ----------
+// ---------- navegacao por abas ----------
 function trocarAba(id, botao) {
   document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
   document.querySelectorAll('nav.abas button').forEach(b => b.classList.remove('ativa'));
@@ -38,7 +37,7 @@ function trocarAba(id, botao) {
   if (id === 'movimentacoes') carregarMovimentacoes();
 }
 
-// ---------- Modal ----------
+// ---------- modal ----------
 function abrirModal(titulo, htmlForm) {
   document.getElementById('modal-titulo').textContent = titulo;
   document.getElementById('modal-form').innerHTML = htmlForm;
@@ -52,9 +51,7 @@ function moeda(v) {
   return Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-// =================================================================
 // DASHBOARD
-// =================================================================
 async function carregarDashboard() {
   try {
     const d = await http.get('/movimentacoes/dashboard');
@@ -78,9 +75,7 @@ async function carregarDashboard() {
   } catch (e) { aviso(e.message, 'erro'); }
 }
 
-// =================================================================
 // CATEGORIAS
-// =================================================================
 async function carregarCategorias() {
   try {
     categoriasCache = await http.get('/categorias');
@@ -138,9 +133,7 @@ async function excluirCategoria(id) {
   } catch (e) { aviso(e.message, 'erro'); }
 }
 
-// =================================================================
 // PRODUTOS
-// =================================================================
 async function carregarProdutos() {
   try {
     produtosCache = await http.get('/produtos');
@@ -166,7 +159,7 @@ async function carregarProdutos() {
 
 async function abrirFormProduto(id = null) {
   modalTipo = 'produto'; modalId = id;
-  // Garante que temos as categorias para o select.
+  // garante que temos as categorias para o select
   if (!categoriasCache.length) categoriasCache = await http.get('/categorias');
   const p = id ? produtosCache.find(x => x.id === id) : {};
 
@@ -230,9 +223,8 @@ async function excluirProduto(id) {
   } catch (e) { aviso(e.message, 'erro'); }
 }
 
-// =================================================================
+
 // MOVIMENTACOES
-// =================================================================
 async function carregarMovimentacoes() {
   try {
     const lista = await http.get('/movimentacoes');
@@ -311,7 +303,7 @@ async function excluirMovimentacao(id) {
   } catch (e) { aviso(e.message, 'erro'); }
 }
 
-// ---------- Despacha o "Salvar" do modal ----------
+// ---------- despacha o salvar do modal ----------
 async function salvarModal() {
   try {
     if (modalTipo === 'categoria') await salvarCategoria();
