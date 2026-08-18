@@ -1,5 +1,5 @@
-// Logica da tela de login.
-// Se ja estiver logado, vai direto para o sistema.
+// Logica da tela de login
+// Se ja estiver logado, vai direto para o sistema
 if (pegarToken()) window.location.href = 'app.html';
 
 const form = document.getElementById('form-login');
