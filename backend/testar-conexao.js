@@ -1,8 +1,6 @@
 // =========================================================
 // Script de diagnostico da conexao com o MySQL.
-// Rode com:   node testar-conexao.js
-// Ele testa APENAS a conexao e explica, em portugues,
-// o que fazer se der erro. Nao mexe em nada do sistema.
+// Ele testa APENAS a conexao e explica
 // =========================================================
 require('dotenv').config();
 const mysql = require('mysql2/promise');
