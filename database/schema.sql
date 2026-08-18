@@ -1,7 +1,6 @@
 -- =========================================================
--- Sistema de Controle de Estoque - Projeto Integrador
--- Script de criacao do banco de dados (MySQL)
--- Modelagem normalizada ate a 3FN
+-- Sistema de Controle de Estoque 
+-- Script de criacao do banco de dados 
 -- =========================================================
 
 -- Cria e seleciona o banco
@@ -25,7 +24,6 @@ CREATE TABLE usuarios (
 
 -- ---------------------------------------------------------
 -- Tabela: categorias
--- Ex.: Bebidas, Limpeza, Papelaria...
 -- ---------------------------------------------------------
 CREATE TABLE categorias (
   id          INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,8 +34,7 @@ CREATE TABLE categorias (
 
 -- ---------------------------------------------------------
 -- Tabela: produtos
--- Cada produto pertence a uma categoria (FK). Guarda o saldo
--- atual em estoque (atualizado pelas movimentacoes).
+-- Cada produto pertence a uma categoria. Guarda saldo
 -- ---------------------------------------------------------
 CREATE TABLE produtos (
   id             INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,8 +53,8 @@ CREATE TABLE produtos (
 
 -- ---------------------------------------------------------
 -- Tabela: movimentacoes
--- Historico de entradas e saidas de cada produto. Registra
--- quem fez a movimentacao (FK usuarios) e qual produto (FK).
+-- Historico de entradas e saidas de cada produto
+-- quem fez a movimentaca e qual produto 
 -- ---------------------------------------------------------
 CREATE TABLE movimentacoes (
   id          INT AUTO_INCREMENT PRIMARY KEY,
