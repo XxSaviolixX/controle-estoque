@@ -1,7 +1,7 @@
-// Camada de comunicacao com a API.
-// Centraliza o fetch, adiciona o token JWT e trata erros.
+// camada de comunicacao com a api
+// centraliza o fetch, adiciona o token JWT e trata erros
 
-// Guarda/recupera o token no navegador.
+// guarda/recupera token 
 function salvarToken(token) { localStorage.setItem('token', token); }
 function pegarToken() { return localStorage.getItem('token'); }
 function salvarUsuario(u) { localStorage.setItem('usuario', JSON.stringify(u)); }
@@ -15,20 +15,20 @@ function sair() {
   window.location.href = 'index.html';
 }
 
-// Funcao generica de requisicao.
+// func generica de requisicao
 async function api(caminho, opcoes = {}) {
   const config = {
     headers: { 'Content-Type': 'application/json' },
     ...opcoes
   };
 
-  // Envia o token nas rotas protegidas.
+  // envia o token nas rotas protegidas
   const token = pegarToken();
   if (token) config.headers['Authorization'] = 'Bearer ' + token;
 
   const resposta = await fetch(API_URL + caminho, config);
 
-  // Se o token expirou, volta para o login.
+  // se o token expirou, volta para o login
   if (resposta.status === 401 && !caminho.includes('/auth/')) {
     sair();
     throw new Error('Sessao expirada. Faca login novamente.');
